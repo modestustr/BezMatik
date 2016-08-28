@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">BezMatik</string>
+    <string name="adet">Adet</string>
+    <string name="fiyat">Toplam Tutar</string>
+    <string name="kargo">Kargo Tutarı</string>
+    <string name="birim">Birim Fiyatı</string>
+    <string name="hesapla">Hesapla</string>
+    <string name="temizle">Temizle</string>
+    <string name="bos">  </string>
+</resources>
