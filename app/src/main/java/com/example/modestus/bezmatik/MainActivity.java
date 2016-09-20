@@ -1,6 +1,5 @@
 package com.example.modestus.bezmatik;
 
-
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,7 +14,6 @@ import android.view.View;
 import java.text.DecimalFormat;
 
 import static android.view.View.*;
-
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,62 +44,61 @@ public class MainActivity extends AppCompatActivity {
         kargo = (EditText) findViewById(R.id.txtKargo);
         birim = (TextView) findViewById(R.id.txtBirim);
 
-
-
         Button myButon = (Button) findViewById(R.id.btnHesapla);
         myButon.setOnClickListener(onClickListener);
         Button temizle = (Button) findViewById(R.id.imgBtnTemizle);
         temizle.setOnClickListener(onClickListener);
-
-
     }
 
-    private OnClickListener onClickListener = new OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.imgBtnTemizle:
-                    adet.setText(getString(R.string.bos));
-                    toplam.setText(getString(R.string.bos));
-                    kargo.setText(getString(R.string.bos));
-                    birim.setText(getString(R.string.birim));
-                    slide_left();
-                    adet.requestFocus();
-                    break;
-                case R.id.btnHesapla:
-                    try {
+    private OnClickListener onClickListener;
 
-                        strAdet = strToplam = strKargo = "0f";
+    {
+        onClickListener = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()) {
+                    case R.id.imgBtnTemizle:
+                        adet.setText(getString(R.string.bos));
+                        toplam.setText(getString(R.string.bos));
+                        kargo.setText(getString(R.string.bos));
+                        birim.setText(getString(R.string.birim));
+                        slide_left();
+                        adet.requestFocus();
+                        break;
+                    case R.id.btnHesapla:
+                        try {
 
-                        if (isNullOrEmpty(adet.getText().toString())==false)
-                            strAdet = adet.getText().toString();
-                        a = Float.parseFloat(strAdet);
+                            strAdet = strToplam = strKargo = "0f";
 
-                        if (!isNullOrEmpty(toplam.getText().toString()))
-                            strToplam = toplam.getText().toString();
-                        b = Float.parseFloat(strToplam);
+                            if (isNullOrEmpty(adet.getText().toString()) == false)
+                                strAdet = adet.getText().toString();
+                            a = Float.parseFloat(strAdet);
 
-                        if (!isNullOrEmpty(kargo.getText().toString()))
-                            strKargo = kargo.getText().toString();
-                        c = Float.parseFloat(strKargo);
+                            if (!isNullOrEmpty(toplam.getText().toString()))
+                                strToplam = toplam.getText().toString();
+                            b = Float.parseFloat(strToplam);
+
+                            if (!isNullOrEmpty(kargo.getText().toString()))
+                                strKargo = kargo.getText().toString();
+                            c = Float.parseFloat(strKargo);
 
 
-                        birim.setText(String.valueOf(Cevir(getHesapla(a, b, c))));
+                            birim.setText(String.valueOf(Cevir(getHesapla(a, b, c))));
 
-                    } catch (Exception ex) {
-                        birim.setText("");
-                    }
+                        } catch (Exception ex) {
+                            birim.setText("");
+                        }
 
-                    slide_left();
-                    break;
+                        slide_left();
+                        break;
+                }
             }
 
-        }
-
-        public void slide_left() {
-            birim.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.slide_out_right));
-        }
-    };
+            public void slide_left() {
+                birim.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.slide_out_right));
+            }
+        };
+    }
 
     public float getHesapla(float adet, float toplam, float kargo) {
         float rtn = 0;
