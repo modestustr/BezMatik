@@ -48,6 +48,16 @@ public class MainActivity extends AppCompatActivity {
         myButon.setOnClickListener(onClickListener);
         Button temizle = (Button) findViewById(R.id.imgBtnTemizle);
         temizle.setOnClickListener(onClickListener);
+        Button temizleAdet = (Button) findViewById(R.id.imgBtnTemizleAdet);
+        temizleAdet.setOnClickListener(onClickListener);
+
+        Button temizleToplam = (Button) findViewById(R.id.imgBtnTemizleToplam);
+        temizleToplam.setOnClickListener(onClickListener);
+
+        Button temizleKargo = (Button) findViewById(R.id.imgBtnTemizleKargo);
+        temizleKargo.setOnClickListener(onClickListener);
+
+
     }
 
     private OnClickListener onClickListener;
@@ -90,6 +100,18 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         slide_left();
+                        break;
+                    case R.id.imgBtnTemizleAdet:
+                        adet.setText("");
+                        adet.requestFocus();
+                        break;
+                    case R.id.imgBtnTemizleToplam:
+                        toplam.setText("");
+                        toplam.requestFocus();
+                        break;
+
+                    case R.id.imgBtnTemizleKargo:
+                        kargo.setText("");kargo.requestFocus();
                         break;
                 }
             }

@@ -17,33 +17,9 @@
         android:id="@+id/txtAdet"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
         android:autoText="true"
-        android:hint="Adet" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/txtKargo"
-        android:layout_below="@+id/txtToplam"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:autoText="true"
-        android:hint="Kargo" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="numberDecimal"
-        android:ems="10"
-        android:id="@+id/txtToplam"
-        android:layout_below="@+id/txtAdet"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:autoText="true"
-        android:hint="Toplam Tutar" />
+        android:hint="Adet"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:id="@+id/txtBirim"
@@ -81,7 +57,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true" />
 
-
     <Button
         android:id="@+id/imgBtnTemizle"
         android:layout_width="wrap_content"
@@ -91,5 +66,58 @@
         android:layout_below="@+id/txtKargo"
         android:layout_alignParentEnd="true" />
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/txtToplam"
+        android:autoText="true"
+        android:hint="Toplam Tutar"
+        android:layout_below="@+id/txtAdet"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal"
+        android:ems="10"
+        android:id="@+id/txtKargo"
+        android:autoText="true"
+        android:hint="Kargo"
+        android:layout_below="@+id/txtToplam"
+        android:layout_alignEnd="@+id/txtToplam"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:id="@+id/imgBtnTemizleToplam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_notification_clear_all"
+        android:textAlignment="viewStart"
+        android:layout_below="@+id/txtAdet"
+        android:layout_alignStart="@+id/imgBtnTemizleAdet"
+        android:layout_above="@+id/txtKargo" />
+
+    <Button
+        android:id="@+id/imgBtnTemizleAdet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_notification_clear_all"
+        android:textAlignment="viewStart"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_above="@+id/imgBtnTemizleToplam" />
+    <Button
+        android:id="@+id/imgBtnTemizleKargo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@android:drawable/ic_notification_clear_all"
+        android:textAlignment="viewStart"
+        android:layout_below="@+id/txtToplam"
+        android:layout_alignStart="@+id/imgBtnTemizleToplam"
+        android:layout_above="@+id/imgBtnTemizle" />
 
 </RelativeLayout>
