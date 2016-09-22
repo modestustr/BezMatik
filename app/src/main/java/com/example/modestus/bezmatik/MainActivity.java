@@ -1,71 +1,36 @@
 package com.example.modestus.bezmatik;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.view.animation.Animation;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.view.View;
 
 import java.text.DecimalFormat;
 
-import static android.view.View.*;
+import static android.view.View.OnClickListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText adet, toplam, kargo;
-    TextView birim;
-    Float a = 0f;
-    Float b = 0f;
-    Float c = 0f;
-    String strAdet;
-    String strToplam;
-    String strKargo;
+    //Controls
+    EditText adet, toplam, kargo, etNum1, etNum2;
+    TextView birim, tvResult;
+    Button hesapla, temizle, temizleAdet, temizleToplam, temizleKargo, btnAdd, btnSub, btnMult, btnDiv;
 
-    public static boolean isNullOrEmpty(String a) {
-        return a == null || a.isEmpty();
-    }
-
-    public static boolean isNullOrWhiteSpace(String a) {
-        return a == null || (a.length() > 0 && a.trim().length() <= 0);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        adet = (EditText) findViewById(R.id.txtAdet);
-        toplam = (EditText) findViewById(R.id.txtToplam);
-        kargo = (EditText) findViewById(R.id.txtKargo);
-        birim = (TextView) findViewById(R.id.txtBirim);
-
-        Button myButon = (Button) findViewById(R.id.btnHesapla);
-        myButon.setOnClickListener(onClickListener);
-        Button temizle = (Button) findViewById(R.id.imgBtnTemizle);
-        temizle.setOnClickListener(onClickListener);
-        Button temizleAdet = (Button) findViewById(R.id.imgBtnTemizleAdet);
-        temizleAdet.setOnClickListener(onClickListener);
-
-        Button temizleToplam = (Button) findViewById(R.id.imgBtnTemizleToplam);
-        temizleToplam.setOnClickListener(onClickListener);
-
-        Button temizleKargo = (Button) findViewById(R.id.imgBtnTemizleKargo);
-        temizleKargo.setOnClickListener(onClickListener);
-
-
-    }
-
+    //Variables
+    String strAdet, strToplam, strKargo, oper = "";
+    Float a, b, c, num1, num2, result = 0f;
     private OnClickListener onClickListener;
 
     {
         onClickListener = new OnClickListener() {
             @Override
             public void onClick(View v) {
+                String etNumara1 = etNum1.getText().toString();
+                String etNumara2 = etNum2.getText().toString();
+
                 switch (v.getId()) {
                     case R.id.imgBtnTemizle:
                         adet.setText(getString(R.string.bos));
@@ -79,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
                         try {
 
                             strAdet = strToplam = strKargo = "0f";
-
                             if (isNullOrEmpty(adet.getText().toString()) == false)
                                 strAdet = adet.getText().toString();
                             a = Float.parseFloat(strAdet);
@@ -91,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
                             if (!isNullOrEmpty(kargo.getText().toString()))
                                 strKargo = kargo.getText().toString();
                             c = Float.parseFloat(strKargo);
-
 
                             birim.setText(String.valueOf(Cevir(getHesapla(a, b, c))));
 
@@ -111,15 +74,63 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.imgBtnTemizleKargo:
-                        kargo.setText("");kargo.requestFocus();
+                        kargo.setText("");
+                        kargo.requestFocus();
                         break;
+
+                    case R.id.btnAdd:
+                        oper = "+";
+                        if (Kontrol(etNumara1, etNumara2))
+                            result = num1 + num2;
+                        break;
+                    case R.id.btnSub:
+                        oper = "-";
+                        if (Kontrol(etNumara1, etNumara2)) result = num1 - num2;
+                        break;
+                    case R.id.btnMult:
+                        oper = "*";
+                        if (Kontrol(etNumara1, etNumara2)) result = num1 * num2;
+                        break;
+                    case R.id.btnDiv:
+                        oper = "/";
+                        if (Kontrol(etNumara1, etNumara2)) result = num1 / num2;
+                        break;
+
                 }
+                tvResult.setText(num1 + " " + oper + " " + num2 + " = " + result);
             }
 
             public void slide_left() {
                 birim.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, android.R.anim.slide_out_right));
             }
+
         };
+    }
+
+    //Public Functions
+    public static boolean isNullOrEmpty(String a) {
+        return a == null || a.isEmpty();
+    }
+
+    public static boolean isNullOrWhiteSpace(String a) {
+        return a == null || (a.length() > 0 && a.trim().length() <= 0);
+    }
+
+    public boolean Kontrol(String etNum1, String etNum2) {
+
+        boolean a = false;
+
+        if (isNullOrEmpty(etNum1) || isNullOrEmpty(etNum2)) {
+            a = false;
+            num1 = num2 = result = 0f;
+        } else a = true;
+        if (a) {
+            // read EditText and fill variables with numbers
+            num1 = Float.parseFloat(etNum1);
+            num2 = Float.parseFloat(etNum2);
+        }
+
+        return a;
     }
 
     public float getHesapla(float adet, float toplam, float kargo) {
@@ -146,4 +157,48 @@ public class MainActivity extends AppCompatActivity {
         df.setMaximumFractionDigits(2);
         return df.format(x);
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        adet = (EditText) findViewById(R.id.txtAdet);
+        toplam = (EditText) findViewById(R.id.txtToplam);
+        kargo = (EditText) findViewById(R.id.txtKargo);
+        birim = (TextView) findViewById(R.id.txtBirim);
+
+
+        // find the elements
+        etNum1 = (EditText) findViewById(R.id.etNum1);
+        etNum2 = (EditText) findViewById(R.id.etNum2);
+
+        hesapla = (Button) findViewById(R.id.btnHesapla);
+        temizle = (Button) findViewById(R.id.imgBtnTemizle);
+        temizleAdet = (Button) findViewById(R.id.imgBtnTemizleAdet);
+        temizleToplam = (Button) findViewById(R.id.imgBtnTemizleToplam);
+        temizleKargo = (Button) findViewById(R.id.imgBtnTemizleKargo);
+
+        btnAdd = (Button) findViewById(R.id.btnAdd);
+        btnSub = (Button) findViewById(R.id.btnSub);
+        btnMult = (Button) findViewById(R.id.btnMult);
+        btnDiv = (Button) findViewById(R.id.btnDiv);
+
+        tvResult = (TextView) findViewById(R.id.tvResult);
+
+
+        btnAdd.setOnClickListener(onClickListener);
+        btnSub.setOnClickListener(onClickListener);
+        btnMult.setOnClickListener(onClickListener);
+        btnDiv.setOnClickListener(onClickListener);
+        hesapla.setOnClickListener(onClickListener);
+        temizle.setOnClickListener(onClickListener);
+        temizleAdet.setOnClickListener(onClickListener);
+        temizleToplam.setOnClickListener(onClickListener);
+        temizleKargo.setOnClickListener(onClickListener);
+
+
+    }
+
+
 }
